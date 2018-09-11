@@ -52,6 +52,14 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     // Register observer
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    
+    for (int i=0; i < [self.assetCollections count]; ++i) {
+        PHAssetCollection *assetCollection = [self.assetCollections objectAtIndex:i];
+        if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+            [self performSegueWithIdentifier:@"showAssets" sender:nil];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
