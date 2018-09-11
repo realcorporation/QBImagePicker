@@ -66,6 +66,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 @property (nonatomic, assign) BOOL disableScrollToBottom;
 @property (nonatomic, strong) NSIndexPath *lastSelectedItemIndexPath;
 
+@property (nonatomic) BOOL didSelectFirstItem;
+
 @end
 
 @implementation QBAssetsViewController
@@ -79,6 +81,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     // Register observer
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    self.didSelectFirstItem = self.imagePickerController.selectedAssets.count == 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -609,6 +612,10 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     if ([imagePickerController.delegate respondsToSelector:@selector(qb_imagePickerController:didSelectAsset:)]) {
         [imagePickerController.delegate qb_imagePickerController:imagePickerController didSelectAsset:asset];
+    }
+    
+    if (self.didSelectFirstItem) {
+        [self done:nil];
     }
 }
 
