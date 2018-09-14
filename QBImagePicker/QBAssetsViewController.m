@@ -604,6 +604,10 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
                 [self.navigationController setToolbarHidden:NO animated:YES];
             }
         }
+        
+        if (self.didSelectFirstItem) {
+            [self done:nil];
+        }
     } else {
         if ([imagePickerController.delegate respondsToSelector:@selector(qb_imagePickerController:didFinishPickingAssets:)]) {
             [imagePickerController.delegate qb_imagePickerController:imagePickerController didFinishPickingAssets:@[asset]];
@@ -612,10 +616,6 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     if ([imagePickerController.delegate respondsToSelector:@selector(qb_imagePickerController:didSelectAsset:)]) {
         [imagePickerController.delegate qb_imagePickerController:imagePickerController didSelectAsset:asset];
-    }
-    
-    if (self.didSelectFirstItem) {
-        [self done:nil];
     }
 }
 
