@@ -168,7 +168,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         [fetchResult enumerateObjectsUsingBlock:^(PHAssetCollection *assetCollection, NSUInteger index, BOOL *stop) {
             PHAssetCollectionSubtype subtype = assetCollection.assetCollectionSubtype;
             
-            if (subtype == PHAssetCollectionSubtypeAlbumRegular) {
+            if (subtype == PHAssetCollectionSubtypeAlbumRegular || subtype == PHAssetCollectionSubtypeAlbumCloudShared) {
                 [userAlbums addObject:assetCollection];
             } else if ([assetCollectionSubtypes containsObject:@(subtype)]) {
                 if (!smartAlbums[@(subtype)]) {
